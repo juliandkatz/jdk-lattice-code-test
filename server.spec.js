@@ -12,6 +12,24 @@ describe('/', () => {
   })
 })
 
+describe('/movie/search', () => {
+  describe('POST', () => {
+    it('returns a list of movies', done => {
+      request(server)
+        .get('/movie/search')
+        .query({
+          query: 'Toy Story'
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.an('array')
+          expect(res.body[0].title).to.equal('Toy Story')
+          done()
+        })
+    })
+  })
+})
+
 describe('/movie/popular', () => {
   describe('GET', () => {
     it('returns a list of movies', done => {
@@ -47,4 +65,3 @@ describe('/movie/someId', () => {
     })
   })
 })
-// describe('/search/movie')

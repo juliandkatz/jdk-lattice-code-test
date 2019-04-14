@@ -16,13 +16,15 @@ const instance = axios.create({
   }
 })
 
+server.get('/movie/search', async (req, res) => {
+  const response = await instance.get('/search/movie', { params: { query: req.query.query } })
+  res.send(response.data.results)
+})
+
 server.get('/', (req, res) => res.send('Hello World!'))
 
 server.get('/movie/popular', async (req, res) => {
-  console.log('POPULAR')
-  const response = await instance.get('/movie/popular', {
-    page: '1'
-  })
+  const response = await instance.get('/movie/popular')
 
   res.send(response.data.results)
 })
