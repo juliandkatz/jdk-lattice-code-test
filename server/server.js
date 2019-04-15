@@ -4,7 +4,7 @@ const axios = require('axios')
 
 // Config
 require('dotenv').config()
-const port = 3000
+const port = 4000
 
 // Setup
 const server = express()
@@ -16,12 +16,13 @@ const instance = axios.create({
   }
 })
 
+// ROUTES
+server.get('/', (req, res) => res.send('Hello World!'))
+
 server.get('/movie/search', async (req, res) => {
   const response = await instance.get('/search/movie', { params: { query: req.query.query } })
   res.send(response.data.results)
 })
-
-server.get('/', (req, res) => res.send('Hello World!'))
 
 server.get('/movie/popular', async (req, res) => {
   const response = await instance.get('/movie/popular')
@@ -39,8 +40,11 @@ server.get('/movie/:id', async (req, res) => {
   }
 })
 
-if (process.env.TEST !== 'true') {
+// START SERVER
+if (process.env.TEST !== 'true') { // This is to prevent .listen() invocations during tests
   server.listen(port, () => console.log(`Example app listening on port ${port}!`))
 }
+
+// EXPORT FOR TESTING
 
 module.exports = server
