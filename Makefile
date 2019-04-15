@@ -1,13 +1,8 @@
-start:
-	npm start
+server:
+	cd ./server && make start
 
-test:
-	npm test
-
-watch:
-	npm run watch
+install:
+	cd ./server && make install
 
 .PHONY: \
-	start \
-	test \
-	watch
+	server
