@@ -1,8 +1,29 @@
 import React, { Component } from 'react'
-
 import { List, Container } from 'semantic-ui-react'
+import Axios from 'axios'
+
+const PORT = 4000
+const axInstance = Axios.create({
+  baseURL: `http://localhost:${PORT}/`
+})
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      popularMovies: []
+    }
+  }
+
+  async componentDidMount () {
+    // make a call to the backend
+    const response = await axInstance.get('/')
+
+    console.log(response)
+
+    // setState with the array of movies
+  }
+
   render () {
     return (
       <Container>

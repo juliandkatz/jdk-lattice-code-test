@@ -1,6 +1,7 @@
 // Modules
 const express = require('express')
 const axios = require('axios')
+const cors = require('cors')
 
 // Config
 require('dotenv').config()
@@ -8,6 +9,7 @@ const port = 4000
 
 // Setup
 const server = express()
+server.use(cors)
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   params: {
