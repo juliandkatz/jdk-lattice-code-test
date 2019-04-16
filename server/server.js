@@ -4,12 +4,16 @@ const axios = require('axios')
 const cors = require('cors')
 
 // Config
-require('dotenv').config()
+const result = require('dotenv').config()
+if (result.error) {
+  throw result.error
+}
 const port = 4000
 
 // Setup
 const server = express()
-server.use(cors)
+server.use(cors({ origin: 'http://localhost:3000' }))
+
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   params: {
@@ -44,9 +48,9 @@ server.get('/movie/:id', async (req, res) => {
 
 // START SERVER
 if (process.env.TEST !== 'true') { // This is to prevent .listen() invocations during tests
+  console.log('LISTEN')
   server.listen(port, () => console.log(`Example app listening on port ${port}!`))
 }
 
 // EXPORT FOR TESTING
-
 module.exports = server
