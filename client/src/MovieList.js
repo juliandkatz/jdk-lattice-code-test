@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Item, List, Image, Header, Progress } from 'semantic-ui-react'
+import { Item, Rating } from 'semantic-ui-react'
 import './App.css'
 
 class MovieList extends Component {
@@ -18,7 +18,7 @@ class MovieList extends Component {
           </Item.Meta>
           <Item.Description>
             <div className='small-text'>{movie.overview}</div>
-            <Progress percent={movie.vote_average * 10} size='small' progress />
+            <Rating icon='star' defaultRating={Math.round(movie.vote_average / 2)} maxRating={5} />
           </Item.Description>
         </Item.Content>
       </Item>
