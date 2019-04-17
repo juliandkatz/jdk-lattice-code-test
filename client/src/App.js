@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { List, Container } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import Axios from 'axios'
 
+import MovieList from './MovieList.js'
+
 const PORT = 4000
-const axInstance = Axios.create({
+const backend = Axios.create({
   baseURL: `http://localhost:${PORT}/`
 })
 
@@ -17,38 +19,19 @@ class App extends Component {
 
   async componentDidMount () {
     // make a call to the backend
-    const response = await axInstance.get('/')
-
-    console.log(response)
+    const response = await backend.get('/movie/popular')
 
     // setState with the array of movies
+    this.setState({ popularMovies: response.data })
+
+    console.log(response.data)
   }
 
   render () {
     return (
       <Container>
-        <List>
-          <List.Item>bla</List.Item>
-          <List.Item>Pears</List.Item>
-          <List.Item>Oranges</List.Item>
-        </List>
+        <MovieList movies={this.state.popularMovies} />
       </Container>
-    //   <div className='App'>
-    //     <header className='App-header'>
-    //       <img src={logo} className='App-logo' alt='logo' />
-    //       <p>
-    //         Edit <code>src/App.js</code> and save to reload.
-    //       </p>
-    //       <a
-    //         className='App-link'
-    //         href='https://reactjs.org'
-    //         target='_blank'
-    //         rel='noopener noreferrer'
-    //       >
-    //         Learn React
-    //       </a>
-    //     </header>
-    //   </div>
     )
   }
 }
