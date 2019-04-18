@@ -47,15 +47,19 @@ class App extends Component {
 
   render () {
     return (
-      <Container>
-        <Input
-          onChange={this.handleSearchInput}
-          action={{ content: 'Search', onClick: this.handleSearchClick }}
-          placeholder='Search...'
-          value={this.state.searchTerm}
-        />
-        <MovieList movies={this.state.movies} />
-      </Container>
+      <div>
+        <Container  style={{ margin: '2em' }} >
+          <Input
+            onChange={this.handleSearchInput}
+            action={{ content: 'Search', onClick: this.handleSearchClick }}
+            placeholder='Search...'
+            value={this.state.searchTerm}
+          />
+        </Container>
+        <Container>
+          <MovieList movies={this.state.movies} />
+        </Container>
+      </div>
     )
   }
 }
