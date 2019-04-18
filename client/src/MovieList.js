@@ -1,10 +1,52 @@
 import React, { Component } from 'react'
-import { Item, Rating } from 'semantic-ui-react'
-import './App.css'
+import { Item, Rating, Container, Input } from 'semantic-ui-react'
 
+import './App.css'
+import Axios from 'axios'
+
+const PORT = 4000
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/'
 
+const backend = Axios.create({
+  baseURL: `http://localhost:${PORT}/`
+})
+
 class MovieList extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      movies: [],
+      searchTerm: ''
+    }
+
+    this.handleSearchInput = this.handleSearchInput.bind(this)
+    this.handleSearchClick = this.handleSearchClick.bind(this)
+  }
+
+  async componentDidMount () {
+    // make a call to the backend to retrieve the popular movies
+    const response = await backend.get('/movie/popular')
+
+    // setState with the array of movies
+    this.setState({ movies: response.data })
+
+    console.log(response.data)
+  }
+
+  handleSearchInput (event) {
+    this.setState({ searchTerm: event.target.value })
+  }
+
+  async handleSearchClick () {
+    const response = await backend.get('/movie/search', {
+      params: {
+        query: this.state.searchTerm
+      }
+    })
+
+    this.setState({ movies: response.data })
+  }
+
   renderListItem (movie) {
     return (
       <Item key={movie.id}>
@@ -31,9 +73,19 @@ class MovieList extends Component {
   render () {
     return (
       <div>
-        <Item.Group divided>
-          { this.props.movies.map(movie => this.renderListItem(movie)) }
-        </Item.Group>
+        <Container style={{ margin: '2em' }} >
+          <Input
+            onChange={this.handleSearchInput}
+            action={{ content: 'Search', onClick: this.handleSearchClick }}
+            placeholder='Search...'
+            value={this.state.searchTerm}
+          />
+        </Container>
+        <Container>
+          <Item.Group divided>
+            { this.state.movies.map(movie => this.renderListItem(movie)) }
+          </Item.Group>
+        </Container>
       </div>
     )
   }
