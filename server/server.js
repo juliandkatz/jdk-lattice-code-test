@@ -46,6 +46,12 @@ server.get('/movie/:id', async (req, res) => {
   }
 })
 
+server.get('/movie/:id/cast', async (req, res) => {
+  const response = await instance.get(`/movie/${req.params.id}/casts`)
+
+  res.send(response.data.cast)
+})
+
 // START SERVER
 if (process.env.TEST !== 'true') { // This is to prevent .listen() invocations during tests
   console.log('LISTEN')

@@ -65,3 +65,19 @@ describe('/movie/someId', () => {
     })
   })
 })
+
+describe('/movie/someId/casts', () => {
+  describe('GET', () => {
+    it('returns the cast with the correct first actor', done => {
+      request(server)
+        .get('/movie/123/cast')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.an('array')
+          const firstActor = res.body[0]
+          expect(firstActor.name).to.equal('Christopher Guard')
+          done()
+        })
+    })
+  })
+})
