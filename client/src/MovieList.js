@@ -20,6 +20,7 @@ class MovieList extends Component {
               icon='star'
               defaultRating={Math.round(movie.vote_average / 2)}
               maxRating={5}
+              disabled
             />
           </Item.Description>
         </Item.Content>
