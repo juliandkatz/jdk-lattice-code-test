@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Item, Rating, Container, Input } from 'semantic-ui-react'
+import Axios from 'axios'
 
 import './App.css'
-import Axios from 'axios'
 
 const PORT = 4000
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/'
