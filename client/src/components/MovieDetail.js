@@ -15,7 +15,7 @@ import {
 } from 'semantic-ui-react'
 
 import './App.css'
-import { getMovie, getActors, IMAGE_URL } from './services/movieBackend.service'
+import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service'
 
 class MovieDetail extends Component {
   constructor (props) {

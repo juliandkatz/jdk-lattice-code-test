@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Item, Rating, Container, Input } from 'semantic-ui-react'
-import Axios from 'axios'
 
 import './App.css'
-import { getPopularMovies, searchMovie, IMAGE_URL } from './services/movieBackend.service'
+import { getPopularMovies, searchMovie, IMAGE_URL } from '../services/movieBackend.service'
 
 class MovieList extends Component {
   constructor (props) {
