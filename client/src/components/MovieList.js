@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Item, Container, Input } from 'semantic-ui-react'
+import { Item, Container } from 'semantic-ui-react'
 
 import './App.css'
 import { getPopularMovies, searchMovie } from '../services/movieBackend.service'
 import MovieListItem from './MovieListItem'
+import SearchInput from './SearchInput'
 
 class MovieList extends Component {
   constructor (props) {
@@ -27,8 +28,8 @@ class MovieList extends Component {
     this.setState({ searchTerm: event.target.value })
   }
 
-  async handleSearchClick () {
-    const response = await searchMovie(this.state.searchTerm)
+  async handleSearchClick (searchTerm) {
+    const response = await searchMovie(searchTerm)
     this.setState({ movies: response })
   }
 
@@ -52,12 +53,7 @@ class MovieList extends Component {
     return (
       <div>
         <Container style={{ margin: '2em' }} >
-          <Input
-            onChange={this.handleSearchInput}
-            action={{ content: 'Search', onClick: this.handleSearchClick }}
-            placeholder='Search...'
-            value={this.state.searchTerm}
-          />
+          <SearchInput clickHandler={this.handleSearchClick} />
         </Container>
         <Container>
           {this.renderMovieList(this.state.movies)}
