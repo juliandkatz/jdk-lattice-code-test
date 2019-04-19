@@ -16,7 +16,7 @@ class MovieList extends Component {
 
     this.handleSearchInput = this.handleSearchInput.bind(this)
     this.handleSearchClick = this.handleSearchClick.bind(this)
-    this.renderMovieList = this.renderMovieList.bind(this)
+    this.renderMovieListItems = this.renderMovieListItems.bind(this)
   }
 
   async componentDidMount () {
@@ -33,7 +33,7 @@ class MovieList extends Component {
     this.setState({ movies: response })
   }
 
-  renderMovieList (movies) {
+  renderMovieListItems (movies) {
     const items = movies.map(movie => {
       const props = {
         id: movie.id,
@@ -56,7 +56,7 @@ class MovieList extends Component {
           <SearchInput clickHandler={this.handleSearchClick} />
         </Container>
         <Container>
-          {this.renderMovieList(this.state.movies)}
+          {this.renderMovieListItems(this.state.movies)}
         </Container>
       </div>
     )
