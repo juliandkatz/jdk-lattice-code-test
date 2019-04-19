@@ -4,13 +4,7 @@ import { Item, Rating, Container, Input } from 'semantic-ui-react'
 import Axios from 'axios'
 
 import './App.css'
-
-const PORT = 4000
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/'
-
-const backend = Axios.create({
-  baseURL: `http://localhost:${PORT}/`
-})
+import { getPopularMovies, searchMovie, IMAGE_URL } from './services/movieBackend.service'
 
 class MovieList extends Component {
   constructor (props) {
@@ -25,13 +19,8 @@ class MovieList extends Component {
   }
 
   async componentDidMount () {
-    // make a call to the backend to retrieve the popular movies
-    const response = await backend.get('/movie/popular')
-
-    // setState with the array of movies
-    this.setState({ movies: response.data })
-
-    console.log(response.data)
+    const response = await getPopularMovies()
+    this.setState({ movies: response })
   }
 
   handleSearchInput (event) {
@@ -39,13 +28,8 @@ class MovieList extends Component {
   }
 
   async handleSearchClick () {
-    const response = await backend.get('/movie/search', {
-      params: {
-        query: this.state.searchTerm
-      }
-    })
-
-    this.setState({ movies: response.data })
+    const response = await searchMovie(this.state.searchTerm)
+    this.setState({ movies: response })
   }
 
   renderListItem (movie) {

@@ -14,3 +14,18 @@ export const getActors = async (movieId) => {
   const response = await backend.get(`/movie/${movieId}/cast`)
   return response.data
 }
+
+export const getPopularMovies = async () => {
+  const response = await backend.get('/movie/popular')
+  return response.data
+}
+
+export const searchMovie = async (searchTerm) => {
+  const response = await backend.get('/movie/search', {
+    params: {
+      query: searchTerm
+    }
+  })
+
+  return response.data
+}
