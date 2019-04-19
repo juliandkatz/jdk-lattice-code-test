@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
 import {
   Image,
   Rating,
@@ -14,14 +13,9 @@ import {
   Button,
   Icon
 } from 'semantic-ui-react'
+
 import './App.css'
-
-const PORT = 4000
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500/'
-
-const backend = Axios.create({
-  baseURL: `http://localhost:${PORT}/`
-})
+import { getMovie, getActors, IMAGE_URL } from './services/movieBackend.service'
 
 class MovieDetail extends Component {
   constructor (props) {
@@ -34,18 +28,13 @@ class MovieDetail extends Component {
 
   async componentDidMount () {
     const movieId = this.props.match.params.movieId
-    const movieResponse = await backend.get(`/movie/${movieId}`)
-    console.log('ID:', movieResponse.data.id)
-    const actorsResponse = await backend.get(`/movie/${movieResponse.data.id}/cast`)
+    const responses = await Promise.all([ getMovie(movieId), getActors(movieId) ])
 
-    // setState with the array of movies
     this.setState({
-      movie: movieResponse.data,
-      actors: actorsResponse.data,
+      movie: responses[0],
+      actors: responses[1],
       isLoaded: true
     })
-    console.log(movieResponse.data)
-    console.log(actorsResponse.data)
   }
 
   getFormattedGenres (genres) {
