@@ -55,9 +55,14 @@ server.get('/movie/:id/cast', async (req, res) => {
   res.send(response.data.cast)
 })
 
+server.get('/discover/movie', async (req, res) => {
+  const response = await instance.get('/discover/movie', { params: { genre: req.query.genre } })
+
+  res.send(response.data.results)
+})
+
 // START SERVER
 if (process.env.TEST !== 'true') { // This is to prevent .listen() invocations during tests
-  console.log('LISTEN')
   server.listen(port, () => console.log(`Example app listening on port ${port}!`))
 }
 

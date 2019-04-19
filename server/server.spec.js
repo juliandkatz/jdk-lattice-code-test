@@ -23,7 +23,7 @@ describe('/movie/search', () => {
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.be.an('array')
-          expect(res.body[0].title).to.equal('Toy Story')
+          expect(res.body[0].title).to.be.a('string')
           done()
         })
     })
@@ -52,8 +52,8 @@ describe('/movie/someId', () => {
         .get('/movie/456740')
         .expect(200)
         .end((err, res) => {
-          expect(res.body.id).to.equal(456740)
-          expect(res.body.title).to.equal('Hellboy')
+          expect(res.body.id).to.be.a('number')
+          expect(res.body.title).to.be.a('string')
           done()
         })
     })
@@ -75,7 +75,24 @@ describe('/movie/someId/casts', () => {
         .end((err, res) => {
           expect(res.body).to.be.an('array')
           const firstActor = res.body[0]
-          expect(firstActor.name).to.equal('Christopher Guard')
+          expect(firstActor.name).to.be.a('string')
+          done()
+        })
+    })
+  })
+})
+
+describe('/discover/movie', () => {
+  describe('GET', () => {
+    it('returns a list of movies that follow a certain genre', done => {
+      request(server)
+        .get('/discover/movie')
+        .query({ genre: 28 })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.an('array')
+          const firstMovie = res.body[0]
+          expect(firstMovie.title).to.be.a('string')
           done()
         })
     })
