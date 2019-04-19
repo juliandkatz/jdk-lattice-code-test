@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { Item, Rating, Container, Input } from 'semantic-ui-react'
+import { Item, Container, Input } from 'semantic-ui-react'
 
 import './App.css'
-import { getPopularMovies, searchMovie, IMAGE_URL } from '../services/movieBackend.service'
+import { getPopularMovies, searchMovie } from '../services/movieBackend.service'
+import MovieListItem from './MovieListItem'
 
 class MovieList extends Component {
   constructor (props) {
@@ -15,6 +15,7 @@ class MovieList extends Component {
 
     this.handleSearchInput = this.handleSearchInput.bind(this)
     this.handleSearchClick = this.handleSearchClick.bind(this)
+    this.renderMovieList = this.renderMovieList.bind(this)
   }
 
   async componentDidMount () {
@@ -31,27 +32,20 @@ class MovieList extends Component {
     this.setState({ movies: response })
   }
 
-  renderListItem (movie) {
-    return (
-      <Item key={movie.id}>
-        <Item.Image src={IMAGE_URL + movie.poster_path} size='tiny' />
-        <Item.Content>
-          <Item.Header><Link to={`/${movie.id}`}>{movie.title}</Link></Item.Header>
-          <Item.Meta>
-            <div>Released: {movie.release_date}</div>
-          </Item.Meta>
-          <Item.Description>
-            <div className='small-text'>{movie.overview}</div>
-            <Rating
-              icon='star'
-              defaultRating={Math.round(movie.vote_average / 2)}
-              maxRating={5}
-              disabled
-            />
-          </Item.Description>
-        </Item.Content>
-      </Item>
-    )
+  renderMovieList (movies) {
+    const items = movies.map(movie => {
+      const props = {
+        id: movie.id,
+        posterPath: movie.poster_path,
+        title: movie.title,
+        releaseDate: movie.release_date,
+        overview: movie.overview,
+        scoreOutOfFive: Math.round(movie.vote_average / 2)
+      }
+      return <MovieListItem key={movie.id} {...props} />
+    })
+
+    return (<Item.Group divided >{items}</Item.Group>)
   }
 
   render () {
@@ -66,9 +60,7 @@ class MovieList extends Component {
           />
         </Container>
         <Container>
-          <Item.Group divided>
-            { this.state.movies.map(movie => this.renderListItem(movie)) }
-          </Item.Group>
+          {this.renderMovieList(this.state.movies)}
         </Container>
       </div>
     )
