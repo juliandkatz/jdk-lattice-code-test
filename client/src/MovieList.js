@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Item, Rating, Container, Input } from 'semantic-ui-react'
 import Axios from 'axios'
 
@@ -52,7 +53,7 @@ class MovieList extends Component {
       <Item key={movie.id}>
         <Item.Image src={IMAGE_URL + movie.poster_path} size='tiny' />
         <Item.Content>
-          <Item.Header>{movie.title}</Item.Header>
+          <Item.Header><Link to={`/${movie.id}`}>{movie.title}</Link></Item.Header>
           <Item.Meta>
             <div>Released: {movie.release_date}</div>
           </Item.Meta>

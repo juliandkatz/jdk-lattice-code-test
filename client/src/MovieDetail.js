@@ -1,6 +1,19 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Axios from 'axios'
-import { Image, Rating, Container, Loader, Dimmer, Segment, Header, Grid, List} from 'semantic-ui-react'
+import {
+  Image,
+  Rating,
+  Container,
+  Loader,
+  Dimmer,
+  Segment,
+  Header,
+  Grid,
+  List,
+  Button,
+  Icon
+} from 'semantic-ui-react'
 import './App.css'
 
 const PORT = 4000
@@ -43,7 +56,6 @@ class MovieDetail extends Component {
   }
 
   renderActors (actors) {
-    console.log(actors)
     return (
       <List className='actor-list'>
         {actors.map(val => <List.Item key={val.id}>{val.name}</List.Item>)}
@@ -53,7 +65,7 @@ class MovieDetail extends Component {
 
   render () {
     return (
-      <Container style={{ marginTop: '4em' }}>
+      <Container style={{ marginTop: '3em' }}>
         {!this.state.isLoaded &&
           <Dimmer active inverted>
             <Loader size='massive'>Loading</Loader>
@@ -62,46 +74,62 @@ class MovieDetail extends Component {
         {this.state.isLoaded &&
           <div>
             <Grid stackable columns={2} >
-              <Grid.Column width={6}>
-                <Image
-                  src={IMAGE_URL + this.state.movie.poster_path}
-                  size='large'
-                  className='large-movie-poster'
-                />
-              </Grid.Column>
-              <Grid.Column width={9}>
-                <Grid padded >
-                  <Grid.Row>
-                    <Header floated='left' size='huge'>{this.state.movie.title}</Header>
-                  </Grid.Row>
-                  <Grid.Row>
-                    {this.getFormattedGenres(this.state.movie.genres)}
-                  </Grid.Row>
-                  <Grid.Row>
-                    <List horizontal divided >
-                      <List.Item>
-                        {this.state.movie.runtime}min
-                      </List.Item>
-                      <List.Item>
-                        {this.state.movie.release_date.split('-')[0]}
-                      </List.Item>
-                      <List.Item>
-                        <Rating
-                          icon='star'
-                          defaultRating={Math.round(this.state.movie.vote_average / 2)}
-                          maxRating={5}
-                          disabled
-                        />
-                      </List.Item>
-                    </List>
-                  </Grid.Row>
-                  <Grid.Row>
-                    {this.renderActors(this.state.actors)}
-                  </Grid.Row>
-                </Grid>
-              </Grid.Column>
+              <Grid.Row>
+                <Grid.Column>
+                  <Link to='/'>
+                    <Button icon labelPosition='left'>
+                      <Icon name='left arrow' />
+                      Back to Popular Movies
+                    </Button>
+                  </Link>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={6}>
+                  <Image
+                    src={IMAGE_URL + this.state.movie.poster_path}
+                    size='large'
+                    className='large-movie-poster'
+                  />
+                </Grid.Column>
+                <Grid.Column width={9}>
+                  <Grid padded >
+                    <Grid.Row>
+                      <Header floated='left' size='huge'>{this.state.movie.title}</Header>
+                    </Grid.Row>
+                    <Grid.Row>
+                      {this.getFormattedGenres(this.state.movie.genres)}
+                    </Grid.Row>
+                    <Grid.Row>
+                      <List horizontal divided >
+                        <List.Item>
+                          {this.state.movie.runtime}min
+                        </List.Item>
+                        <List.Item>
+                          {this.state.movie.release_date.split('-')[0]}
+                        </List.Item>
+                        <List.Item>
+                          <Rating
+                            icon='star'
+                            defaultRating={Math.round(this.state.movie.vote_average / 2)}
+                            maxRating={5}
+                            disabled
+                          />
+                        </List.Item>
+                      </List>
+                    </Grid.Row>
+                    <Grid.Row>
+                      {this.renderActors(this.state.actors)}
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={15}>
+                  <Segment>{this.state.movie.overview}</Segment>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
-            <Segment>{this.state.movie.overview}</Segment>
           </div>
         }
       </Container>
