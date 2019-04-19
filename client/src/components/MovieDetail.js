@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import {
   Image,
   Rating,
@@ -7,14 +6,13 @@ import {
   Segment,
   Header,
   Grid,
-  List,
-  Button,
-  Icon
+  List
 } from 'semantic-ui-react'
 
 import './App.css'
 import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service'
 import Loading from './Loading'
+import LinkButton from './LinkButton'
 
 class MovieDetail extends Component {
   constructor (props) {
@@ -62,12 +60,7 @@ class MovieDetail extends Component {
             <Grid stackable columns={2} >
               <Grid.Row>
                 <Grid.Column>
-                  <Link to='/'>
-                    <Button icon labelPosition='left'>
-                      <Icon name='left arrow' />
-                      Back to Popular Movies
-                    </Button>
-                  </Link>
+                  <LinkButton path='/' text='Back to Popular movies' />
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
