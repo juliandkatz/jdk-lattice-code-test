@@ -2,6 +2,8 @@
 const express = require('express')
 const axios = require('axios')
 const cors = require('cors')
+const apicache = require('apicache') // Server-side caching
+// apicache.options({ debug: true }) // Turn on to display caching logs
 
 // Config
 const result = require('dotenv').config()
@@ -13,6 +15,7 @@ const port = 4000
 // Setup
 const server = express()
 server.use(cors({ origin: 'http://localhost:3000' }))
+server.use(apicache.middleware('5 minutes'))
 
 const instance = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
