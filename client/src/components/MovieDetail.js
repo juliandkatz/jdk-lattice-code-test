@@ -1,26 +1,21 @@
 import React, { Component } from 'react'
 import {
   Image,
-  Rating,
   Container,
   Segment,
-  Header,
-  Grid,
-  List
+  Grid
 } from 'semantic-ui-react'
 
 import './App.css'
 import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service'
 import Loading from './Loading'
 import LinkButton from './LinkButton'
+import MovieDetailFactsSection from './MovieDetailFactsSection'
 
 class MovieDetail extends Component {
   constructor (props) {
     super(props)
     this.state = { movie: null, isLoaded: false, actors: [] }
-
-    this.getFormattedGenres = this.getFormattedGenres.bind(this)
-    this.renderActors = this.renderActors.bind(this)
   }
 
   async componentDidMount () {
@@ -32,21 +27,6 @@ class MovieDetail extends Component {
       actors: responses[1],
       isLoaded: true
     })
-  }
-
-  getFormattedGenres (genres) {
-    return genres.reduce((agg, val, index) => {
-      const delim = index < genres.length - 1 ? ', ' : ''
-      return agg + val.name + delim
-    }, ' ')
-  }
-
-  renderActors (actors) {
-    return (
-      <List className='actor-list'>
-        {actors.map(val => <List.Item key={val.id}>{val.name}</List.Item>)}
-      </List>
-    )
   }
 
   render () {
@@ -72,35 +52,14 @@ class MovieDetail extends Component {
                   />
                 </Grid.Column>
                 <Grid.Column width={9}>
-                  <Grid padded >
-                    <Grid.Row>
-                      <Header floated='left' size='huge'>{this.state.movie.title}</Header>
-                    </Grid.Row>
-                    <Grid.Row>
-                      {this.getFormattedGenres(this.state.movie.genres)}
-                    </Grid.Row>
-                    <Grid.Row>
-                      <List horizontal divided >
-                        <List.Item>
-                          {this.state.movie.runtime}min
-                        </List.Item>
-                        <List.Item>
-                          {this.state.movie.release_date.split('-')[0]}
-                        </List.Item>
-                        <List.Item>
-                          <Rating
-                            icon='star'
-                            defaultRating={Math.round(this.state.movie.vote_average / 2)}
-                            maxRating={5}
-                            disabled
-                          />
-                        </List.Item>
-                      </List>
-                    </Grid.Row>
-                    <Grid.Row>
-                      {this.renderActors(this.state.actors)}
-                    </Grid.Row>
-                  </Grid>
+                  <MovieDetailFactsSection
+                    title={this.state.movie.title}
+                    genres={this.state.movie.genres.map(ob => ob.name)}
+                    runtime={this.state.movie.runtime}
+                    releaseYear={this.state.movie.release_date.split('-')[0]}
+                    actors={this.state.actors}
+                    rating={Math.round(this.state.movie.vote_average / 2)}
+                  />
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
