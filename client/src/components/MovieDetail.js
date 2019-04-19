@@ -4,8 +4,6 @@ import {
   Image,
   Rating,
   Container,
-  Loader,
-  Dimmer,
   Segment,
   Header,
   Grid,
@@ -16,6 +14,7 @@ import {
 
 import './App.css'
 import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service'
+import Loading from './Loading'
 
 class MovieDetail extends Component {
   constructor (props) {
@@ -56,9 +55,7 @@ class MovieDetail extends Component {
     return (
       <Container style={{ marginTop: '3em' }}>
         {!this.state.isLoaded &&
-          <Dimmer active inverted>
-            <Loader size='massive'>Loading</Loader>
-          </Dimmer>
+          <Loading />
         }
         {this.state.isLoaded &&
           <div>
