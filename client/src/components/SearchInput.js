@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Input } from 'semantic-ui-react'
 
 class SearchInput extends Component {
@@ -27,6 +28,16 @@ class SearchInput extends Component {
         value={this.state.searchTerm}
       />
     )
+  }
+}
+
+SearchInput.propTypes = {
+  clickHandler: function (props, propName, componentName) {
+    if (typeof props[propName] !== 'function') {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName}. Must be a function.`
+      )
+    }
   }
 }
 

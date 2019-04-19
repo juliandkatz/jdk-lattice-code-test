@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   Image,
   Container,
@@ -56,7 +57,7 @@ class MovieDetail extends Component {
                     title={this.state.movie.title}
                     genres={this.state.movie.genres.map(ob => ob.name)}
                     runtime={this.state.movie.runtime}
-                    releaseYear={this.state.movie.release_date.split('-')[0]}
+                    releaseYear={Number(this.state.movie.release_date.split('-')[0])}
                     actors={this.state.actors}
                     rating={Math.round(this.state.movie.vote_average / 2)}
                   />
@@ -73,6 +74,14 @@ class MovieDetail extends Component {
       </Container>
     )
   }
+}
+
+MovieDetail.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      movieId: PropTypes.string.isRequired
+    })
+  })
 }
 
 export default MovieDetail

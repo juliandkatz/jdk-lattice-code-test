@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import {
   Rating,
   Header,
@@ -55,6 +56,15 @@ class MovieDetailFactsSection extends PureComponent {
       </Grid>
     )
   }
+}
+
+MovieDetailFactsSection.propTypes = {
+  title: PropTypes.string.isRequired,
+  genres: PropTypes.array.isRequired,
+  runtime: PropTypes.number.isRequired,
+  releaseYear: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
+  actors: PropTypes.array.isRequired
 }
 
 export default MovieDetailFactsSection

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { Item, Rating } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
@@ -27,6 +28,15 @@ class MovieListItem extends PureComponent {
       </Item>
     )
   }
+}
+
+MovieListItem.propTypes = {
+  posterPath: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  scoreOutOfFive: PropTypes.number.isRequired
 }
 
 export default MovieListItem
