@@ -2,6 +2,15 @@
   font-size: .75rem;
 }
 
+.actor-list {
+  max-height: 15.5rem;
+  overflow: hidden;
+}
+
+.large-movie-poster {
+  margin-top: 1.5rem;
+}
+
 .App {
   text-align: center;
 }
