@@ -39,7 +39,7 @@ class RelatedMoviesBar extends Component {
     return (
       <div>
         <Header as='h4'>Related Movies</Header>
-        <Segment textAlign='center' loading={!this.state.isLoaded}>
+        <Segment className='loading-segment' textAlign='center' loading={!this.state.isLoaded}>
           {this.renderImages(this.state.movies)}
         </Segment>
       </div>

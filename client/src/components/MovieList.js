@@ -100,7 +100,7 @@ class MovieList extends Component {
           </Menu.Item>
         </Menu>
         <Segment
-          className='movie-list-segment'
+          className='loading-segment'
           attached='bottom'
           loading={this.state.movies.length < 1}
         >
