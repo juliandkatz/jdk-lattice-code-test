@@ -12,6 +12,7 @@ import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service
 import Loading from './Loading'
 import LinkButton from './LinkButton'
 import MovieDetailFactsSection from './MovieDetailFactsSection'
+import RelatedMoviesBar from './RelatedMoviesBar'
 
 class MovieDetail extends Component {
   constructor (props) {
@@ -66,6 +67,14 @@ class MovieDetail extends Component {
               <Grid.Row>
                 <Grid.Column width={15}>
                   <Segment>{this.state.movie.overview}</Segment>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={15}>
+                  <RelatedMoviesBar
+                    genreId={this.state.movie.genres[0].id}
+                    currentMovieId={this.state.movie.id}
+                  />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
