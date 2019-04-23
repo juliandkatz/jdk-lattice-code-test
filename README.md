@@ -10,7 +10,7 @@ This is a React app with an express backend.  The backend was developed in a TDD
 API_KEY=putyourapikeyhere
 ```
 
-in the `./server` directory.  This is not stored in source control as it is a secret.
+in the `./server` directory.  This is not stored in source control as it is a secret.  I can email you mine if you prefer.
 
 2. From the main project directory, run `make install`
 
