@@ -10,3 +10,7 @@
 .loading-segment {
   min-height: 100px;
 }
+
+.loading-actors-list {
+  min-height: 150px;
+}

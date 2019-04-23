@@ -62,6 +62,7 @@ class MovieDetail extends Component {
                       releaseYear={Number(this.state.movie.release_date.split('-')[0])}
                       actors={this.state.actors}
                       rating={Math.round(this.state.movie.vote_average / 2)}
+                      movieId={this.state.movie.id}
                     />
                   </Segment>
                 </Grid.Column>

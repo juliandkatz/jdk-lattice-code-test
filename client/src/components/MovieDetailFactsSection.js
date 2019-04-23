@@ -7,6 +7,8 @@ import {
   List
 } from 'semantic-ui-react'
 
+import MovieDetailActorsSection from './MovieDetailActorsSection'
+
 class MovieDetailFactsSection extends PureComponent {
   getFormattedGenres (genres) {
     return genres.reduce((agg, val, index) => {
@@ -51,7 +53,7 @@ class MovieDetailFactsSection extends PureComponent {
           </List>
         </Grid.Row>
         <Grid.Row>
-          {this.renderActors(this.props.actors)}
+          <MovieDetailActorsSection movieId={this.props.movieId} />
         </Grid.Row>
       </Grid>
     )
@@ -64,6 +66,7 @@ MovieDetailFactsSection.propTypes = {
   runtime: PropTypes.number.isRequired,
   releaseYear: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
+  movieId: PropTypes.number.isRequired,
   actors: PropTypes.array.isRequired
 }
 

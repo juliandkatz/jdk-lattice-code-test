@@ -27,7 +27,7 @@ class RelatedMoviesBar extends Component {
     const movieMarkup = movies
       .filter(movie => movie.id !== this.props.currentMovieId)
       .map(movie => (
-        <Link to={`/${movie.id}`}>
+        <Link to={`/${movie.id}`} key={movie.id}>
           <Image src={IMAGE_URL + movie.poster_path} size='small' wrapped />
         </Link>
       ))
