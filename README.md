@@ -4,6 +4,14 @@ This is a React app with an express backend.  The backend was developed in a TDD
 
 ### Build and Run
 
+1) You will need to insert a `.env` file containing:
+
+```
+API_KEY=putyourapikeyhere
+```
+
+in the `./server` directory.  This is not stored in source control as it is a secret.
+
 1) From the main project directory, run `make install`
 
 2) In one shell, run `make start-server`
@@ -20,6 +28,7 @@ The client app will be available on http://localhost:3000
 - Movies by genre, using the dropdown on the right (the field is also searchable)
 - Select a movie's header to move to the movie detail page
 - Select one of the related movie posters below to move to that movie's page
+- Server caches responses for 5 minutes
 
 ### Test the server
 
