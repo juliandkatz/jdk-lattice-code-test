@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import { Item, Container } from 'semantic-ui-react'
+import { Item, Container, Dropdown } from 'semantic-ui-react'
 
 import './App.css'
-import { getPopularMovies, searchMovie } from '../services/movieBackend.service'
+import {
+  getPopularMovies,
+  getMoviesByQuery,
+  getGenres,
+  getMoviesByGenre
+} from '../services/movieBackend.service'
 import MovieListItem from './MovieListItem'
 import SearchInput from './SearchInput'
 
@@ -11,17 +16,33 @@ class MovieList extends Component {
     super(props)
     this.state = {
       movies: [],
-      searchTerm: ''
+      searchTerm: '',
+      genres: []
     }
 
     this.handleSearchInput = this.handleSearchInput.bind(this)
     this.handleSearchClick = this.handleSearchClick.bind(this)
     this.renderMovieListItems = this.renderMovieListItems.bind(this)
+    this.formatGenresForDropdown = this.formatGenresForDropdown.bind(this)
+    this.handleGenreSelect = this.handleGenreSelect.bind(this)
   }
 
   async componentDidMount () {
-    const response = await getPopularMovies()
-    this.setState({ movies: response })
+    const responses = await Promise.all([getPopularMovies(), getGenres()])
+    this.setState({
+      movies: responses[0],
+      genres: this.formatGenresForDropdown(responses[1])
+    })
+  }
+
+  formatGenresForDropdown (rawGenreResponse) {
+    return rawGenreResponse.map(val => {
+      return {
+        key: val.id,
+        text: val.name,
+        value: val.id
+      }
+    })
   }
 
   handleSearchInput (event) {
@@ -29,7 +50,12 @@ class MovieList extends Component {
   }
 
   async handleSearchClick (searchTerm) {
-    const response = await searchMovie(searchTerm)
+    const response = await getMoviesByQuery(searchTerm)
+    this.setState({ movies: response })
+  }
+
+  async handleGenreSelect (event, { value }) {
+    const response = await getMoviesByGenre(value)
     this.setState({ movies: response })
   }
 
@@ -53,7 +79,16 @@ class MovieList extends Component {
     return (
       <div>
         <Container style={{ margin: '2em' }} >
-          <SearchInput clickHandler={this.handleSearchClick} />
+          <SearchInput className='detail-top-element' clickHandler={this.handleSearchClick} />
+          <Dropdown
+            className='detail-top-element'
+            placeholder='Select a genre...'
+            selection
+            search
+            options={this.state.genres}
+            loading={this.state.genres.length === 0}
+            onChange={this.handleGenreSelect}
+          />
         </Container>
         <Container>
           {this.renderMovieListItems(this.state.movies)}

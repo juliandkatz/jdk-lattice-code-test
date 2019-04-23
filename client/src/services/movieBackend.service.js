@@ -20,10 +20,25 @@ export const getPopularMovies = async () => {
   return response.data
 }
 
-export const searchMovie = async (searchTerm) => {
+export const getMoviesByQuery = async (searchTerm) => {
   const response = await backend.get('/movie/search', {
     params: {
       query: searchTerm
+    }
+  })
+
+  return response.data
+}
+
+export const getGenres = async () => {
+  const response = await backend.get('/genres')
+  return response.data
+}
+
+export const getMoviesByGenre = async (genreId) => {
+  const response = await backend.get('/discover/movie', {
+    params: {
+      genre: genreId
     }
   })
 
