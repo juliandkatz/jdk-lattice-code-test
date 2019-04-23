@@ -11,7 +11,9 @@ class App extends Component {
       <Container>
         <Switch>
           <Route exact path='/' component={MovieList} />
-          <Route path='/:movieId' component={MovieDetail} />
+          <Route path='/:movieId' render={props => (
+            <MovieDetail key={props.match.params.movieId} {...props} /> // Fixes lack of reload on url change
+          )} />
         </Switch>
       </Container>
     )
