@@ -33,7 +33,7 @@ class MovieDetail extends Component {
 
   render () {
     return (
-      <Container style={{ marginTop: '3em' }}>
+      <Container style={{ marginTop: '2em' }}>
         {!this.state.isLoaded &&
           <Loading />
         }

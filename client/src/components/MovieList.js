@@ -99,7 +99,11 @@ class MovieList extends Component {
             />
           </Menu.Item>
         </Menu>
-        <Segment attached='bottom'>
+        <Segment
+          className='movie-list-segment'
+          attached='bottom'
+          loading={this.state.movies.length < 1}
+        >
           {this.renderMovieListItems(this.state.movies)}
         </Segment>
       </Container>
