@@ -13,4 +13,5 @@ install:
 .PHONY: \
 	start \
 	test \
-	watch
+	watch \
+	install

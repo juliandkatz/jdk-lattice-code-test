@@ -1,8 +1,27 @@
-server:
-	cd ./server && make start
+### BUILD
 
-install:
+install-server:
 	cd ./server && make install
 
+install-client:
+	cd ./client && make install
+
+install: install-server install-client
+
+
+
+### RUN
+
+start-server:
+	cd ./server && make start
+
+start-client:
+	cd ./client && make start
+
+
 .PHONY: \
-	server
+	install-server \
+	install-client \
+	install \
+	start-server \
+	start-client 
