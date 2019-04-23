@@ -33,7 +33,6 @@ server.get('/movie/search', async (req, res) => {
 
 server.get('/movie/popular', async (req, res) => {
   const response = await instance.get('/movie/popular')
-
   res.send(response.data.results)
 })
 
@@ -49,19 +48,16 @@ server.get('/movie/:id', async (req, res) => {
 
 server.get('/movie/:id/cast', async (req, res) => {
   const response = await instance.get(`/movie/${req.params.id}/casts`)
-
   res.send(response.data.cast)
 })
 
 server.get('/genres', async (req, res) => {
   const response = await instance.get('/genre/movie/list')
-
   res.send(response.data.genres)
 })
 
 server.get('/discover/movie', async (req, res) => {
   const response = await instance.get('/discover/movie', { params: { with_genres: req.query.genre } })
-
   res.send(response.data.results)
 })
 
