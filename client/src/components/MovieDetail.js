@@ -45,23 +45,25 @@ class MovieDetail extends Component {
                   <LinkButton path='/' text='Back to Popular movies' />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
+              <Grid.Row stretched >
                 <Grid.Column width={6}>
                   <Image
                     src={IMAGE_URL + this.state.movie.poster_path}
                     size='large'
-                    className='large-movie-poster'
+                    verticalAlign='top'
                   />
                 </Grid.Column>
                 <Grid.Column width={9}>
-                  <MovieDetailFactsSection
-                    title={this.state.movie.title}
-                    genres={this.state.movie.genres.map(ob => ob.name)}
-                    runtime={this.state.movie.runtime}
-                    releaseYear={Number(this.state.movie.release_date.split('-')[0])}
-                    actors={this.state.actors}
-                    rating={Math.round(this.state.movie.vote_average / 2)}
-                  />
+                  <Segment>
+                    <MovieDetailFactsSection
+                      title={this.state.movie.title}
+                      genres={this.state.movie.genres.map(ob => ob.name)}
+                      runtime={this.state.movie.runtime}
+                      releaseYear={Number(this.state.movie.release_date.split('-')[0])}
+                      actors={this.state.actors}
+                      rating={Math.round(this.state.movie.vote_average / 2)}
+                    />
+                  </Segment>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
