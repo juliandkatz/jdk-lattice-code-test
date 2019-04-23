@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { Item, Container, Dropdown } from 'semantic-ui-react'
+import {
+  Item,
+  Container,
+  Dropdown,
+  Menu,
+  Segment
+} from 'semantic-ui-react'
 
 import './App.css'
 import {
@@ -77,23 +83,26 @@ class MovieList extends Component {
 
   render () {
     return (
-      <div>
-        <Container style={{ margin: '2em' }} >
-          <SearchInput className='detail-top-element' clickHandler={this.handleSearchClick} />
-          <Dropdown
-            className='detail-top-element'
-            placeholder='Select a genre...'
-            selection
-            search
-            options={this.state.genres}
-            loading={this.state.genres.length === 0}
-            onChange={this.handleGenreSelect}
-          />
-        </Container>
-        <Container>
+      <Container style={{ marginTop: '2em' }} >
+        <Menu attached='top' stackable >
+          <Menu.Item>
+            <SearchInput clickHandler={this.handleSearchClick} />
+          </Menu.Item>
+          <Menu.Item position='right' fitted='vertically'>
+            <Dropdown
+              item
+              placeholder='Select a genre...'
+              selection
+              search
+              options={this.state.genres}
+              onChange={this.handleGenreSelect}
+            />
+          </Menu.Item>
+        </Menu>
+        <Segment attached='bottom'>
           {this.renderMovieListItems(this.state.movies)}
-        </Container>
-      </div>
+        </Segment>
+      </Container>
     )
   }
 }

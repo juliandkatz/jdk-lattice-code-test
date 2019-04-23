@@ -23,7 +23,7 @@ class SearchInput extends Component {
       <Input
         onChange={this.handleInput}
         action={{ content: 'Search', onClick: this.handleClick }}
-        placeholder='Search...'
+        placeholder='Search movies...'
         value={this.state.searchTerm}
       />
     )
