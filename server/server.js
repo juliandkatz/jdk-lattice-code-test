@@ -55,11 +55,19 @@ server.get('/movie/:id/cast', async (req, res) => {
   res.send(response.data.cast)
 })
 
+server.get('/genres', async (req, res) => {
+  const response = await instance.get('/genre/movie/list')
+
+  res.send(response.data.genres)
+})
+
 server.get('/discover/movie', async (req, res) => {
-  const response = await instance.get('/discover/movie', { params: { genre: req.query.genre } })
+  const response = await instance.get('/discover/movie', { params: { with_genres: req.query.genre } })
 
   res.send(response.data.results)
 })
+
+server.get('/genres')
 
 // START SERVER
 if (process.env.TEST !== 'true') { // This is to prevent .listen() invocations during tests

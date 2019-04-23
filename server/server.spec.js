@@ -98,3 +98,20 @@ describe('/discover/movie', () => {
     })
   })
 })
+
+describe('/genres', () => {
+  describe('GET', () => {
+    it('returns a list of genres', done => {
+      request(server)
+        .get('/genres')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.be.an('array')
+          const firstGenre = res.body[0]
+          expect(firstGenre.id).to.be.a('number')
+          expect(firstGenre.name).to.be.a('string')
+          done()
+        })
+    })
+  })
+})
