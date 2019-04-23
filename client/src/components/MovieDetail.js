@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react'
 
 import './App.css'
-import { getMovie, getActors, IMAGE_URL } from '../services/movieBackend.service'
+import { getMovie, IMAGE_URL } from '../services/movieBackend.service'
 import Loading from './Loading'
 import LinkButton from './LinkButton'
 import MovieDetailFactsSection from './MovieDetailFactsSection'
@@ -17,16 +17,15 @@ import RelatedMoviesBar from './RelatedMoviesBar'
 class MovieDetail extends Component {
   constructor (props) {
     super(props)
-    this.state = { movie: null, isLoaded: false, actors: [] }
+    this.state = { movie: null, isLoaded: false }
   }
 
   async componentDidMount () {
     const movieId = this.props.match.params.movieId
-    const responses = await Promise.all([ getMovie(movieId), getActors(movieId) ])
+    const response = await getMovie(movieId)
 
     this.setState({
-      movie: responses[0],
-      actors: responses[1],
+      movie: response,
       isLoaded: true
     })
   }
@@ -51,6 +50,8 @@ class MovieDetail extends Component {
                     src={IMAGE_URL + this.state.movie.poster_path}
                     size='large'
                     verticalAlign='top'
+                    fluid
+                    centered
                   />
                 </Grid.Column>
                 <Grid.Column width={9}>
@@ -60,7 +61,6 @@ class MovieDetail extends Component {
                       genres={this.state.movie.genres.map(ob => ob.name)}
                       runtime={this.state.movie.runtime}
                       releaseYear={Number(this.state.movie.release_date.split('-')[0])}
-                      actors={this.state.actors}
                       rating={Math.round(this.state.movie.vote_average / 2)}
                       movieId={this.state.movie.id}
                     />

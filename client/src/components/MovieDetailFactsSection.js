@@ -17,38 +17,34 @@ class MovieDetailFactsSection extends PureComponent {
     }, ' ')
   }
 
-  renderActors (actors) {
-    return (
-      <List className='actor-list'>
-        {actors.map(val => <List.Item key={val.id}>{val.name}</List.Item>)}
-      </List>
-    )
-  }
-
   render () {
     return (
-      <Grid padded >
+      <Grid doubling padded >
         <Grid.Row>
-          <Header floated='left' size='huge'>{this.props.title}</Header>
-        </Grid.Row>
-        <Grid.Row>
-          {this.getFormattedGenres(this.props.genres)}
-        </Grid.Row>
-        <Grid.Row>
-          <List horizontal divided >
+          <List>
             <List.Item>
-              {this.props.runtime}min
+              <Header floated='left' size='huge'>{this.props.title}</Header>
             </List.Item>
             <List.Item>
-              {this.props.releaseYear}
+              {this.getFormattedGenres(this.props.genres)}
             </List.Item>
             <List.Item>
-              <Rating
-                icon='star'
-                defaultRating={this.props.rating}
-                maxRating={5}
-                disabled
-              />
+              <List horizontal divided >
+                <List.Item>
+                  {this.props.runtime}min
+                </List.Item>
+                <List.Item>
+                  {this.props.releaseYear}
+                </List.Item>
+                <List.Item>
+                  <Rating
+                    icon='star'
+                    defaultRating={this.props.rating}
+                    maxRating={5}
+                    disabled
+                  />
+                </List.Item>
+              </List>
             </List.Item>
           </List>
         </Grid.Row>
@@ -66,8 +62,7 @@ MovieDetailFactsSection.propTypes = {
   runtime: PropTypes.number.isRequired,
   releaseYear: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  movieId: PropTypes.number.isRequired,
-  actors: PropTypes.array.isRequired
+  movieId: PropTypes.number.isRequired
 }
 
 export default MovieDetailFactsSection
