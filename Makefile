@@ -19,6 +19,12 @@ start-client:
 	cd ./client && make start
 
 
+### TEST
+
+test-server:
+	cd ./server && make test
+
+
 .PHONY: \
 	install-server \
 	install-client \
