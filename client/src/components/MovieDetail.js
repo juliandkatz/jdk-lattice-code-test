@@ -50,7 +50,6 @@ class MovieDetail extends Component {
                     src={IMAGE_URL + this.state.movie.poster_path}
                     size='large'
                     verticalAlign='top'
-                    fluid
                     centered
                   />
                 </Grid.Column>

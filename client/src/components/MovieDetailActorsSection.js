@@ -27,7 +27,7 @@ class MovieDetailActorsSection extends Component {
         </Dimmer>
 
         <List className='actor-list'>
-          {this.state.actors.map(val => <List.Item key={val.id}>{val.name}</List.Item>)}
+          {this.state.actors.map(val => <List.Item key={val.cast_id}>{val.name}</List.Item>)}
         </List>
       </div>
     )
